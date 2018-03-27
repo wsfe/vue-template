@@ -3,13 +3,16 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+const packageConfig = require('../package.json')
 
 module.exports = {
-  dev: {
+  
+  local: {
 
     // Paths
+    assetsRoot: path.resolve(__dirname, '../prd'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: `/${packageConfig.name}/prd/`,
     proxyTable: {},
 
     // Various Dev Server settings
@@ -43,22 +46,31 @@ module.exports = {
     cssSourceMap: true
   },
 
+  dev: {
+    // Template for index.html
+    index: path.resolve(__dirname, '../dev/index.html'),
+    // Paths
+    assetsRoot: path.resolve(__dirname, '../dev'),
+    assetsSubDirectory: 'static',
+    assetsPublicPath: `/${packageConfig.name}/prd/`
+  },
+
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../prd/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../prd'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: `/${packageConfig.name}/prd/`,
 
     /**
      * Source Maps
      */
 
-    productionSourceMap: true,
+    // productionSourceMap: true,
     // https://webpack.js.org/configuration/devtool/#production
-    devtool: '#source-map',
+    // devtool: '#source-map',
 
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.

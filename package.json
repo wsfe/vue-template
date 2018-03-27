@@ -5,13 +5,27 @@
   "author": "angrytoro <angrytoro@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.local.conf.js",
     "start": "npm run dev",
+    "pack": "node build/pack.js --server=dev61",
+    "build": "node build/build.js",
+    "sync": "npm run pack --server=dev61",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "argv": "node ./arg.js --port=8080 --server=dev1"
+  },
+  "servers": {
+    "dev61": {
+      "host": "10.8.203.61",
+      "domain": "//dev1.img.wangsu.com",
+      "port": 63501,
+      "local": "./",
+      "path": "/usr/local/nginx/vue-template",
+      "sudo": false,
+      "exclude": ["node_modules", "build", ".gitignore", "README.md", "package.json", "ft.config.js", "ver", "refs", "src", "prd", ".cache", ".vscode", ".editorconfig"]
+    }
   },
   "dependencies": {
     "vue": "^2.5.2"
@@ -59,6 +73,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.2",
+    "minimist": "^1.2.0",
     "mocha": "^3.2.0",
     "nightwatch": "^0.9.12",
     "node-notifier": "^5.1.2",
