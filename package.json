@@ -8,8 +8,8 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.local.conf.js",
     "start": "npm run dev",
     "pack": "node build/pack.js",
-    "build": "node build/build.js",
-    "sync": "npm run pack --server=dev61",
+    "sync61": "npm run pack --server=dev61 && fet sync dev61",
+    "build": "node build/build.js --server=online",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
@@ -17,12 +17,15 @@
     "argv": "node ./arg.js --port=8080 --server=dev1"
   },
   "servers": {
+    "online": {
+      "domain": "//img.chinanetcenter.com"
+    },
     "dev61": {
-      "host": "10.8.203.61",
-      "domain": "//dev1.img.wangsu.com",
+      "host": "10.8.1.61",
+      "domain": "//static.example.com",
       "port": 63501,
       "local": "./",
-      "path": "/usr/local/nginx/vue-template",
+      "path": "/usr/local/share/vue-template",
       "sudo": false,
       "exclude": ["node_modules", "build", ".gitignore", "README.md", "package.json", "ft.config.js", "ver", "refs", "src", "prd", ".cache", ".vscode", ".editorconfig"]
     }
