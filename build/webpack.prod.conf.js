@@ -28,7 +28,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name]@[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].chunk@[chunkhash].js'),
-    publicPath: `${domain}${config.build.assetsPublicPath}`
+    publicPath: `${utils.getDomain()}${config.build.assetsPublicPath}`
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -46,7 +46,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     // extract css into its own file
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css'),
+      filename: utils.assetsPath('css/[name]@[contenthash].css'),
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
@@ -56,9 +56,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
-      cssProcessorOptions: config.build.productionSourceMap
-        ? { safe: true, map: { inline: false } }
-        : { safe: true }
+      cssProcessorOptions: { safe: true }
     }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
@@ -124,23 +122,23 @@ const webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-if (config.build.productionGzip) {
-  const CompressionWebpackPlugin = require('compression-webpack-plugin')
+// if (config.build.productionGzip) {
+//   const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
-  webpackConfig.plugins.push(
-    new CompressionWebpackPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: new RegExp(
-        '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
-        ')$'
-      ),
-      threshold: 10240,
-      minRatio: 0.8
-    })
-  )
-}
+//   webpackConfig.plugins.push(
+//     new CompressionWebpackPlugin({
+//       asset: '[path].gz[query]',
+//       algorithm: 'gzip',
+//       test: new RegExp(
+//         '\\.(' +
+//         config.build.productionGzipExtensions.join('|') +
+//         ')$'
+//       ),
+//       threshold: 10240,
+//       minRatio: 0.8
+//     })
+//   )
+// }
 
 if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin

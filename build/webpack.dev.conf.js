@@ -9,11 +9,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const argv = require('minimist')(process.argv.slice(2))
-console.log('process.argv===', process.argv.slice(2))
-console.log('argv.server=====', argv.server)
-const domain = argv.server ? require('../package.json').servers[argv.server]['domain'] : ''
-console.log(domain)
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -28,7 +23,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     path: config.dev.assetsRoot,
     filename: utils.assetsPath('js/[name]@dev.js'),
     chunkFilename: utils.assetsPath('js/[id].chunk@dev.js'),
-    publicPath: `${domain}${config.dev.assetsPublicPath}`
+    publicPath: `${utils.getDomain()}${config.dev.assetsPublicPath}`
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -57,9 +52,9 @@ const webpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       minify: {
-        removeComments: false,
-        collapseWhitespace: false,
-        removeAttributeQuotes: false
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },

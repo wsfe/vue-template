@@ -2,6 +2,7 @@
 const path = require('path')
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const argv = require('minimist')(process.argv.slice(2))
 const packageConfig = require('../package.json')
 
 exports.assetsPath = function (_path) {
@@ -100,4 +101,9 @@ exports.createNotifierCallback = () => {
       icon: path.join(__dirname, 'logo.png')
     })
   }
+}
+
+exports.getDomain = function () {
+  const server = argv.server || process.env.npm_config_server
+  const domain = server ? packageConfig.servers[server]['domain'] : ''
 }
