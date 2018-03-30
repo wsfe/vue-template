@@ -18,6 +18,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.local.assetsRoot,
     filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
     publicPath: config.local.assetsPublicPath
   },
   module: {
