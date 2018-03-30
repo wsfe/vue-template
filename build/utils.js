@@ -6,7 +6,7 @@ const argv = require('minimist')(process.argv.slice(2))
 const packageConfig = require('../package.json')
 
 exports.assetsPath = function (_path) {
-  const assetsSubDirectory = config.build.assetsSubDirectory
+  let assetsSubDirectory = config.build.assetsSubDirectory
   if (process.env.NODE_ENV === 'local') {
     assetsSubDirectory = config.local.assetsSubDirectory
   } else if (process.env.NODE_ENV === 'development') {
