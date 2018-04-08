@@ -10,6 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+
+const FILE_NAME_REG = /^([^\@]*)\@?([^\.]+)(\.(js|css))$/;
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -118,7 +121,21 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    new ManifestPlugin({
+      serialize: function (manifest) {
+        return JSON.stringify(manifest, null, 2)
+      },
+      filter: function(file) {
+        return /.*\.(js|css)$/.test(file.path)
+      },
+      generate: function(seed, files) {
+        return files.reduce(function(manifest, file) {
+          manifest[file.name] = file.path.match(FILE_NAME_REG)[2]
+          return manifest
+        }, seed)
+      }
+    })
   ]
 })
 
