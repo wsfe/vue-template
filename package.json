@@ -11,9 +11,8 @@
     "sync61": "npm run pack --server=dev61 && fet sync dev61",
     "build": "node build/build.js --server=online",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs"
+    "test": "npm run unit",
+    "lint": "eslint --ext .js,.vue src test/unit"
   },
   "servers": {
     "online": {
