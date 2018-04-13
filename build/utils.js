@@ -103,6 +103,9 @@ exports.createNotifierCallback = () => {
   }
 }
 
+/**
+ * 获取打包域名
+ */
 exports.getDomain = function () {
   const server = argv.server || process.env.npm_config_server
   const domain = server ? packageConfig.servers[server]['domain'] : ''

@@ -12,6 +12,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const portfinder = require('portfinder')
+const MockHtmlPlugin = require('mock-html-webpack-plugin')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -79,6 +80,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.html',
       inject: true
+    }),
+    new MockHtmlPlugin({
+      data: require('../config/htmlMock')
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

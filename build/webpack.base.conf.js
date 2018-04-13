@@ -42,6 +42,10 @@ module.exports = {
     rules: [
       ...(config.local.useEslint ? [createLintingRule()] : []),
       {
+        test: /index\.html?$/, // 给index.html加这个loader，避免html-webpack-plugin在编译的时候报ReferenceError: xxx is not defined的错误
+        loader: 'html-loader'
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
